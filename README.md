@@ -1,52 +1,52 @@
-# 💈 Salon Appointment Scheduler
+# Salon Appointment Scheduler
 
-> **freeCodeCamp Relational Database Certification — Project #3**
+**freeCodeCamp Relational Database Certification** — Project #3
 
-A terminal-based interactive appointment booking system built with **PostgreSQL** and **Bash**. Customers can browse services, check in by phone number, and schedule appointments — all through a clean CLI menu.
+A terminal-based interactive appointment booking system built with **PostgreSQL** and **Bash**. Customers can browse services, check in by phone number, and schedule appointments through a CLI menu.
 
 ---
 
-## ✨ Features
+## Features
 
 - **Interactive menu** — displays available services loaded directly from the database
 - **Input validation** — rejects invalid service selections and re-prompts until valid
 - **Customer auto-registration** — recognizes returning customers by phone number; creates new records on first visit
-- **Appointment booking** — links customers, services, and appointment times with proper foreign key relationships
+- **Appointment booking** — links customers, services, and appointment times with foreign key relationships
 - **Self-contained script** — single `salon.sh` file handles the full flow via `psql`
 
-## 🛠️ Technologies
+## Technologies
 
 | Tech | Purpose |
 |------|---------|
-| **PostgreSQL** | Relational database (3 tables: `customers`, `services`, `appointments`) |
-| **Bash** | Scripting language for the interactive CLI |
-| **psql** | PostgreSQL's native CLI client |
+| PostgreSQL | Relational database (3 tables: customers, services, appointments) |
+| Bash | Scripting language for the interactive CLI |
+| psql | PostgreSQL's native CLI client |
 
-## 🗄️ Database Schema
+## Database Schema
 
 ```
 salon
-├── customers
-│   ├── customer_id  SERIAL PRIMARY KEY
-│   ├── name         VARCHAR NOT NULL
-│   └── phone        VARCHAR NOT NULL UNIQUE
-├── services
-│   ├── service_id   SERIAL PRIMARY KEY
-│   └── name         VARCHAR NOT NULL
-└── appointments
-    ├── appointment_id  SERIAL PRIMARY KEY
-    ├── customer_id     INT → customers(customer_id)
-    ├── service_id      INT → services(service_id)
-    └── time            VARCHAR NOT NULL
++-- customers
+|   +-- customer_id  SERIAL PRIMARY KEY
+|   +-- name         VARCHAR NOT NULL
+|   +-- phone        VARCHAR NOT NULL UNIQUE
++-- services
+|   +-- service_id   SERIAL PRIMARY KEY
+|   +-- name         VARCHAR NOT NULL
++-- appointments
+    +-- appointment_id  SERIAL PRIMARY KEY
+    +-- customer_id     INT -> customers(customer_id)
+    +-- service_id      INT -> services(service_id)
+    +-- time            VARCHAR NOT NULL
 ```
 
-## 🚀 How to Run
+## How to Run
 
 ```bash
 # 1. Create the database
 psql -U postgres -c "CREATE DATABASE salon;"
 
-# 2. Connect and create tables
+# 2. Restore schema and data
 psql -U postgres -d salon -f salon.sql
 
 # 3. Run the scheduler
@@ -54,7 +54,7 @@ chmod +x salon.sh
 ./salon.sh
 ```
 
-### Sample session
+### Sample Session
 
 ```
 ~~~~~ MY SALON ~~~~~
@@ -82,14 +82,14 @@ I have put you down for a cut at 10:30, Fabio.
 
 Returning customers skip the name prompt — the script recognizes them by phone number.
 
-## 📦 Files
+## Files
 
 | File | Description |
 |------|-------------|
-| `salon.sh` | The interactive bash script |
-| `salon.sql` | PostgreSQL dump (schema + data + constraints) |
-| `README.md` | This file |
+| salon.sh | The interactive bash script |
+| salon.sql | PostgreSQL dump (schema + data + constraints) |
+| README.md | This file |
 
-## 🏁 Certification
+## Certification
 
-This project is part of **freeCodeCamp's Relational Database Certification**.
+This project is part of freeCodeCamp's **Relational Database Certification**.
